@@ -15,6 +15,7 @@ public class Zerg extends Especie{
         this.esbirros = esbirros;
         this.overlords = overlords;
         this.setNumeroVictorias(0);
+        
     }
 
     public int getEsbirros() {

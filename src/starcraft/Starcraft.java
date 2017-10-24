@@ -13,18 +13,12 @@ import java.util.ArrayList;
 public class Starcraft {
 
     static ArrayList<Especie> aEspecies = new ArrayList<>();
-    
+
     public static void main(String[] args) throws IOException, ExcepcionStarcraft {
 
         BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
         String arrayEntrada[];
-        int longArray;
         boolean keepGoing = true;
-
-        
-        //ArrayList<Protoss> aProtoss = new ArrayList<Protoss>();
-        //ArrayList<Zerg> aZerg = new ArrayList<Zerg>();
-        //ArrayList<Terran> aTerran = new ArrayList<Terran>();
 
         do {
             try {
@@ -188,12 +182,7 @@ public class Starcraft {
 
                             //La longitud del array debe ser de 3
                             if (arrayEntrada.length == 3) {
-                                
-                                
-                                //Comprobar que el nombre pertenece a un escuadrón
-                                //Guardar datos del escuadrón
-                                //La posición 3 debe ser el nombre de otro escuadrón
-                                //Comprobar que el nombre pertenece a un escuadrón
+
                                 //Guardar datos del escuadrón
                                 //Creamos un array de 5 posiciones donde guardar el resultado de cada asalto
                                 //En cada asalto se genera un número aleatorio entre 0 y 9 para cada escuadrón
@@ -204,11 +193,38 @@ public class Starcraft {
                                 //Se agrega una victoria al escuadrón ganador
                                 
                                 //Debe haber al menos dos objetos en el array de especies
-                                if(aEspecies.size() > 1){
-                                    //La posición 2 debe ser el nombre de un escuadrón
-                                    
-                                    
-                                }else{
+                                if (aEspecies.size() > 1) {
+                                    //Comprobar que el nombre pertenece a cada escuadrón
+                                    if (existeEscuadron(arrayEntrada[1]) && existeEscuadron(arrayEntrada[2])) {
+                                        
+                                        int pos2 = posicionEscuadronArray(arrayEntrada[2]);
+                                        int pos1 = posicionEscuadronArray(arrayEntrada[1]);
+                                        
+                                        //Comprobar de que tipos son
+                                        //Guardar los escuadrones
+                                        if(aEspecies.get(pos1) instanceof Terran){
+                                            Terran esc1 = (Terran) aEspecies.get(pos1);
+                                        }else if(aEspecies.get(pos1) instanceof Zerg){
+                                            Zerg esc1 = (Zerg) aEspecies.get(pos1);
+                                        }else if(aEspecies.get(pos1) instanceof Protoss){
+                                            Protoss esc1 = (Protoss) aEspecies.get(pos1);
+                                        }
+                                        
+                                        if(aEspecies.get(pos2) instanceof Terran){
+                                            Terran esc2 = (Terran) aEspecies.get(pos2);
+                                        }else if(aEspecies.get(pos2) instanceof Zerg){
+                                            Zerg esc2 = (Zerg) aEspecies.get(pos2);
+                                        }else if(aEspecies.get(pos2) instanceof Protoss){
+                                            Protoss esc2 = (Protoss) aEspecies.get(pos2);
+                                        }
+                                        
+
+                                    } else {
+                                        //Error 005
+                                        System.out.println("< Error 005: No existe especie con ese nombre >");
+                                    }
+
+                                } else {
                                     //ERROR 004: Operación incorrecta
                                     System.out.println("< ERROR 004: Operación incorrecta>");
                                 }
@@ -222,8 +238,8 @@ public class Starcraft {
                             //Mejorar escuadrón
 
                             if (aEspecies.isEmpty()) {
-                                //Dato incorrecto
-                                System.out.println("< ERROR 003 : Dato incorrecto >");
+                                //Array vacío
+                                System.out.println("< ERROR 005 : No existe especie con ese nombre >");
                             } else {
 
                                 //La longitud del array debe ser de 4
@@ -240,10 +256,9 @@ public class Starcraft {
                                             //Guardamos el tipo de especie
                                             //Guardar la posición del escuadrón en el array
                                             pos = i;
-                                            esp = aEspecies.getClass().getSimpleName();
-                                            
-                                            if (aEspecies.get(i) instanceof Terran)
+                                            esp = aEspecies.get(i).getClass().getSimpleName().toLowerCase();
 
+//                                            if (aEspecies.get(i) instanceof Terran)
                                             switch (esp) {
                                                 case "terran":
                                                     //Guardamos el escuadrón encontrado
@@ -251,19 +266,19 @@ public class Starcraft {
                                                     //La posición 3 debe ser el nombre de una propiedad
                                                     //Comprobar que ha entrado una propiedad correcta
 
-                                                    switch (arrayEntrada[2].toLowerCase()) {                                                        
+                                                    switch (arrayEntrada[2].toLowerCase()) {
                                                         case "edificios":
                                                             //La posición 4 debe ser un número
                                                             double ne = 0;
                                                             if (isNumeric(arrayEntrada[3])) {
                                                                 ne = Integer.parseInt(arrayEntrada[3]);
                                                                 //Valores anteriores
-                                                                System.out.println(t.getEdificios());
+                                                                //System.out.println(t.getEdificios());
                                                                 //Modificamos el escuadrón
                                                                 t.setEdificios((int) ne);
                                                                 //Nuevos valores
-                                                                System.out.println(t.getEdificios());                                                                
-                                                                
+                                                                //System.out.println(t.getEdificios());                                                                
+
                                                                 System.out.println("< OK: Propiedad mejorada >");
                                                             }
                                                             break;
@@ -272,12 +287,12 @@ public class Starcraft {
                                                             if (isNumeric(arrayEntrada[3])) {
                                                                 nt = Integer.parseInt(arrayEntrada[3]);
                                                                 //Valores anteriores
-                                                                System.out.println(t.getTecnologia());
+                                                                //System.out.println(t.getTecnologia());
                                                                 //Modificamos el escuadrón
                                                                 t.setTecnologia((int) nt);
                                                                 //Nuevos valores
-                                                                System.out.println(t.getTecnologia());                                                                
-                                                                
+                                                                //System.out.println(t.getTecnologia());                                                                
+
                                                                 System.out.println("< OK: Propiedad mejorada >");
                                                             }
                                                             break;
@@ -290,23 +305,22 @@ public class Starcraft {
                                                 case "zerg":
                                                     //Guardamos el escuadrón encontrado
                                                     Zerg z = (Zerg) aEspecies.get(i);
-                                                    
+
                                                     //La posición 3 debe ser el nombre de una propiedad
                                                     //Comprobar que ha entrado una propiedad correcta
-
-                                                    switch (arrayEntrada[2].toLowerCase()) {                                                        
+                                                    switch (arrayEntrada[2].toLowerCase()) {
                                                         case "esbirros":
                                                             //La posición 4 debe ser un número
                                                             double ne = 0;
                                                             if (isNumeric(arrayEntrada[3])) {
                                                                 ne = Integer.parseInt(arrayEntrada[3]);
                                                                 //Valores anteriores
-                                                                System.out.println(z.getEsbirros());
+                                                                //System.out.println(z.getEsbirros());
                                                                 //Modificamos el escuadrón
                                                                 z.setEsbirros((int) ne);
                                                                 //Nuevos valores
-                                                                System.out.println(z.getEsbirros());                                                                
-                                                                
+                                                                //System.out.println(z.getEsbirros());                                                                
+
                                                                 System.out.println("< OK: Propiedad mejorada >");
                                                             }
                                                             break;
@@ -315,12 +329,12 @@ public class Starcraft {
                                                             if (isNumeric(arrayEntrada[3])) {
                                                                 no = Integer.parseInt(arrayEntrada[3]);
                                                                 //Valores anteriores
-                                                                System.out.println(z.getOverlords());
+                                                                //System.out.println(z.getOverlords());
                                                                 //Modificamos el escuadrón
                                                                 z.setOverlords((int) no);
                                                                 //Nuevos valores
-                                                                System.out.println(z.getOverlords());                                                                
-                                                                
+                                                                //System.out.println(z.getOverlords());                                                                
+
                                                                 System.out.println("< OK: Propiedad mejorada >");
                                                             }
                                                             break;
@@ -333,23 +347,22 @@ public class Starcraft {
                                                 case "protoss":
                                                     //Guardamos el escuadrón encontrado
                                                     Protoss p = (Protoss) aEspecies.get(i);
-                                                    
+
                                                     //La posición 3 debe ser el nombre de una propiedad
                                                     //Comprobar que ha entrado una propiedad correcta
-
-                                                    switch (arrayEntrada[2].toLowerCase()) {                                                        
+                                                    switch (arrayEntrada[2].toLowerCase()) {
                                                         case "pilones":
                                                             //La posición 4 debe ser un número
                                                             double np = 0;
                                                             if (isNumeric(arrayEntrada[3])) {
                                                                 np = Integer.parseInt(arrayEntrada[3]);
                                                                 //Valores anteriores
-                                                                System.out.println(p.getPilones());
+                                                                //System.out.println(p.getPilones());
                                                                 //Modificamos el escuadrón
                                                                 p.setPilones((int) np);
                                                                 //Nuevos valores
-                                                                System.out.println(p.getPilones());                                                                
-                                                                
+                                                                //System.out.println(p.getPilones());                                                                
+
                                                                 System.out.println("< OK: Propiedad mejorada >");
                                                             }
                                                             break;
@@ -366,28 +379,6 @@ public class Starcraft {
                                             }
                                         }
                                     }
-
-                                    /* if (encontrado) {
-                                        switch (esp) {
-                                            case "terran":
-
-                                                break;
-                                            case "zerg":
-                                                break;
-                                            case "protoss":
-                                                break;
-                                            default:
-                                                //Propiedad incorrecta
-                                                System.out.println("< ERROR 006: Propiedad incorrecta >");
-                                                break;
-                                        }
-
-                                        //Modificamos el escuadrón
-                                        //Guardamos los nuevos valores del escuadrón en el array
-                                    } else {
-                                        //No existe especie con ese nombre
-                                        System.out.println(" < ERROR 005 : No existe especie con ese nombre >");
-                                    }*/
                                 } else {
                                     //Nº de argumentos inválidos
                                     System.out.println("< ERROR 001: Nº de argumentos inválidos");
@@ -419,34 +410,34 @@ public class Starcraft {
         }
         return true;
     }
-    
-    public boolean existeEscuadron(String nombreEscuadron){
-        
+
+    public static boolean existeEscuadron(String nombreEscuadron) {
+
         boolean existe = false;
-        
+
         for (Especie especie : aEspecies) {
-            if(especie.getNombre().equalsIgnoreCase(nombreEscuadron)){
+            if (especie.getNombre().equalsIgnoreCase(nombreEscuadron)) {
                 return existe = true;
             }
         }
-        
+
         return existe;
     }
-    
-    public int posicionEscuadronArray(String nombreEscuadron){
-        
+
+    public static int posicionEscuadronArray(String nombreEscuadron) {
+
         int pos = 0;
         int i = 0;
-        
-        if(existeEscuadron(nombreEscuadron)){
+
+        if (existeEscuadron(nombreEscuadron)) {
             for (Especie especie : aEspecies) {
-                if(especie.getNombre().equalsIgnoreCase(nombreEscuadron)){
+                if (especie.getNombre().equalsIgnoreCase(nombreEscuadron)) {
                     pos = i;
                 }
-                i ++;
+                i++;
             }
         }
-        
+
         return pos;
     }
 }
