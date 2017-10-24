@@ -17,6 +17,24 @@ public class Zerg extends Especie{
         this.setNumeroVictorias(0);
     }
 
+    public int getEsbirros() {
+        return esbirros;
+    }
+
+    public void setEsbirros(int esbirros) {
+        this.esbirros = esbirros;
+    }
+
+    public int getOverlords() {
+        return overlords;
+    }
+
+    public void setOverlords(int overlords) {
+        this.overlords = overlords;
+    }
+    
+    
+
     @Override
     public double aumentarDefensa() {
         

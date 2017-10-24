@@ -12,6 +12,16 @@ public class Protoss extends Especie{
     }
 
     public Protoss(){};
+
+    public int getPilones() {
+        return pilones;
+    }
+
+    public void setPilones(int pilones) {
+        this.pilones = pilones;
+    }
+    
+    
     
     @Override
     public double aumentarDefensa() {        

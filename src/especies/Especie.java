@@ -7,7 +7,7 @@ public abstract class Especie {
     private double ataque;
     private double defensa;
     private int numeroVictorias;
-    private String especie;
+//    private String especie;
     
     public Especie() {
     }
@@ -51,13 +51,13 @@ public abstract class Especie {
         this.numeroVictorias = numeroVictorias;
     }
 
-    public String getEspecie() {
-        return especie;
-    }
-
-    public void setEspecie(String especie) {
-        this.especie = especie;
-    }
+//    public String getEspecie() {
+//        return especie;
+//    }
+//
+//    public void setEspecie(String especie) {
+//        this.especie = especie;
+//    }
 
     public abstract String printInfo();
     

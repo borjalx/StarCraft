@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 public class Starcraft {
 
+    static ArrayList<Especie> aEspecies = new ArrayList<>();
+    
     public static void main(String[] args) throws IOException, ExcepcionStarcraft {
 
         BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
@@ -19,7 +21,7 @@ public class Starcraft {
         int longArray;
         boolean keepGoing = true;
 
-        ArrayList<Especie> aEspecies = new ArrayList<>();
+        
         //ArrayList<Protoss> aProtoss = new ArrayList<Protoss>();
         //ArrayList<Zerg> aZerg = new ArrayList<Zerg>();
         //ArrayList<Terran> aTerran = new ArrayList<Terran>();
@@ -82,7 +84,6 @@ public class Starcraft {
                                                     int edificios = Integer.parseInt(arrayEntrada[5]);
                                                     int tecnología = Integer.parseInt(arrayEntrada[6]);
                                                     Terran t = new Terran(nombre, ataque, defensa, edificios, tecnología);
-                                                    t.setEspecie("terran");
                                                     aEspecies.add(t);
                                                     System.out.println("< OK : Escuadrón registrado >");
                                                 }
@@ -127,7 +128,6 @@ public class Starcraft {
                                                     int esbirros = Integer.parseInt(arrayEntrada[5]);
                                                     int overlords = Integer.parseInt(arrayEntrada[6]);
                                                     Zerg z = new Zerg(nombre, ataque, defensa, esbirros, overlords);
-                                                    z.setEspecie("zerg");
                                                     aEspecies.add(z);
                                                     System.out.println("< OK : Escuadrón registrado >");
                                                 }
@@ -170,7 +170,6 @@ public class Starcraft {
                                                     Double defensa = Double.parseDouble(arrayEntrada[4]);
                                                     int pilones = Integer.parseInt(arrayEntrada[5]);
                                                     Protoss p = new Protoss(nombre, ataque, defensa, pilones);
-                                                    p.setEspecie("protoss");
                                                     aEspecies.add(p);
                                                     System.out.println("< OK : Escuadrón registrado >");
                                                 }
@@ -190,7 +189,7 @@ public class Starcraft {
                             //La longitud del array debe ser de 3
                             if (arrayEntrada.length == 3) {
                                 
-                                //La posición 2 debe ser el nombre de un escuadrón
+                                
                                 //Comprobar que el nombre pertenece a un escuadrón
                                 //Guardar datos del escuadrón
                                 //La posición 3 debe ser el nombre de otro escuadrón
@@ -206,6 +205,8 @@ public class Starcraft {
                                 
                                 //Debe haber al menos dos objetos en el array de especies
                                 if(aEspecies.size() > 1){
+                                    //La posición 2 debe ser el nombre de un escuadrón
+                                    
                                     
                                 }else{
                                     //ERROR 004: Operación incorrecta
@@ -237,65 +238,48 @@ public class Starcraft {
                                         if (aEspecies.get(i).getNombre().equalsIgnoreCase(arrayEntrada[1])) {
                                             encontrado = true;
                                             //Guardamos el tipo de especie
-                                            esp = aEspecies.get(i).getEspecie();
                                             //Guardar la posición del escuadrón en el array
                                             pos = i;
+                                            esp = aEspecies.getClass().getSimpleName();
+                                            
+                                            if (aEspecies.get(i) instanceof Terran)
 
                                             switch (esp) {
                                                 case "terran":
                                                     //Guardamos el escuadrón encontrado
-                                                    Terran e = new Terran();
+                                                    Terran t = (Terran) aEspecies.get(i);
                                                     //La posición 3 debe ser el nombre de una propiedad
                                                     //Comprobar que ha entrado una propiedad correcta
 
-                                                    switch (arrayEntrada[2].toLowerCase()) {
-                                                        case "ataque":
-                                                            //La posición 4 debe ser un número
-                                                            double na = 0;
-                                                            if (isNumeric(arrayEntrada[3])) {
-                                                                na = Double.parseDouble(arrayEntrada[3]);
-                                                                //Modificamos el escuadrón
-                                                                e.setAtaque(na);
-                                                                System.out.println("< OK: Propiedad mejorada >");
-                                                            }
-                                                            //Guardamos el nuevo valor del escuadrón en el array
-                                                            aEspecies.get(pos).setAtaque(na);
-                                                            break;
-                                                        case "defensa":
-                                                            //La posición 4 debe ser un número
-                                                            na = 0;
-                                                            if (isNumeric(arrayEntrada[3])) {
-                                                                na = Double.parseDouble(arrayEntrada[3]);
-                                                                //Modificamos el escuadrón
-                                                                e.setDefensa(na);
-                                                                System.out.println("< OK: Propiedad mejorada >");
-                                                            }
-                                                            //Guardamos el nuevo valor del escuadrón en el array
-                                                            aEspecies.get(pos).setDefensa(na);
-                                                            break;
+                                                    switch (arrayEntrada[2].toLowerCase()) {                                                        
                                                         case "edificios":
                                                             //La posición 4 debe ser un número
-                                                            na = 0;
+                                                            double ne = 0;
                                                             if (isNumeric(arrayEntrada[3])) {
-                                                                na = Integer.parseInt(arrayEntrada[3]);
+                                                                ne = Integer.parseInt(arrayEntrada[3]);
+                                                                //Valores anteriores
+                                                                System.out.println(t.getEdificios());
                                                                 //Modificamos el escuadrón
-                                                                
-                                                                //Terran t = (Terran) aEspecies.get(i);
-                                                                e.equals(aEspecies.get(pos));
-                                                                e.setEdificios((int) na);
-                                                                
-                                                                //No me guarda bien las propiedades no comunes
-                                                                System.out.println(aEspecies.get(pos).printInfo());
-                                                                aEspecies.get(pos).equals(e);
-                                                                System.out.println(aEspecies.get(pos).printInfo());
+                                                                t.setEdificios((int) ne);
+                                                                //Nuevos valores
+                                                                System.out.println(t.getEdificios());                                                                
                                                                 
                                                                 System.out.println("< OK: Propiedad mejorada >");
                                                             }
-                                                            //Guardamos el nuevo valor del escuadrón en el array
-                                                            //Preguntar a MAR si está bien
-                                                            aEspecies.get(pos).equals(e);
                                                             break;
                                                         case "tecnologia":
+                                                            double nt = 0;
+                                                            if (isNumeric(arrayEntrada[3])) {
+                                                                nt = Integer.parseInt(arrayEntrada[3]);
+                                                                //Valores anteriores
+                                                                System.out.println(t.getTecnologia());
+                                                                //Modificamos el escuadrón
+                                                                t.setTecnologia((int) nt);
+                                                                //Nuevos valores
+                                                                System.out.println(t.getTecnologia());                                                                
+                                                                
+                                                                System.out.println("< OK: Propiedad mejorada >");
+                                                            }
                                                             break;
                                                         default:
                                                             //Propiedad incorrecta
@@ -304,12 +288,76 @@ public class Starcraft {
                                                     }
                                                     break;
                                                 case "zerg":
-                                                    // e = new Zerg();
-                                                    // e = aEspecies.get(i);
+                                                    //Guardamos el escuadrón encontrado
+                                                    Zerg z = (Zerg) aEspecies.get(i);
+                                                    
+                                                    //La posición 3 debe ser el nombre de una propiedad
+                                                    //Comprobar que ha entrado una propiedad correcta
+
+                                                    switch (arrayEntrada[2].toLowerCase()) {                                                        
+                                                        case "esbirros":
+                                                            //La posición 4 debe ser un número
+                                                            double ne = 0;
+                                                            if (isNumeric(arrayEntrada[3])) {
+                                                                ne = Integer.parseInt(arrayEntrada[3]);
+                                                                //Valores anteriores
+                                                                System.out.println(z.getEsbirros());
+                                                                //Modificamos el escuadrón
+                                                                z.setEsbirros((int) ne);
+                                                                //Nuevos valores
+                                                                System.out.println(z.getEsbirros());                                                                
+                                                                
+                                                                System.out.println("< OK: Propiedad mejorada >");
+                                                            }
+                                                            break;
+                                                        case "overlords":
+                                                            double no = 0;
+                                                            if (isNumeric(arrayEntrada[3])) {
+                                                                no = Integer.parseInt(arrayEntrada[3]);
+                                                                //Valores anteriores
+                                                                System.out.println(z.getOverlords());
+                                                                //Modificamos el escuadrón
+                                                                z.setOverlords((int) no);
+                                                                //Nuevos valores
+                                                                System.out.println(z.getOverlords());                                                                
+                                                                
+                                                                System.out.println("< OK: Propiedad mejorada >");
+                                                            }
+                                                            break;
+                                                        default:
+                                                            //Propiedad incorrecta
+                                                            System.out.println("< ERROR 006: Propiedad incorrecta>");
+                                                            break;
+                                                    }
                                                     break;
                                                 case "protoss":
-                                                    // e = new Protoss();
-                                                    // e = aEspecies.get(i);
+                                                    //Guardamos el escuadrón encontrado
+                                                    Protoss p = (Protoss) aEspecies.get(i);
+                                                    
+                                                    //La posición 3 debe ser el nombre de una propiedad
+                                                    //Comprobar que ha entrado una propiedad correcta
+
+                                                    switch (arrayEntrada[2].toLowerCase()) {                                                        
+                                                        case "pilones":
+                                                            //La posición 4 debe ser un número
+                                                            double np = 0;
+                                                            if (isNumeric(arrayEntrada[3])) {
+                                                                np = Integer.parseInt(arrayEntrada[3]);
+                                                                //Valores anteriores
+                                                                System.out.println(p.getPilones());
+                                                                //Modificamos el escuadrón
+                                                                p.setPilones((int) np);
+                                                                //Nuevos valores
+                                                                System.out.println(p.getPilones());                                                                
+                                                                
+                                                                System.out.println("< OK: Propiedad mejorada >");
+                                                            }
+                                                            break;
+                                                        default:
+                                                            //Propiedad incorrecta
+                                                            System.out.println("< ERROR 006: Propiedad incorrecta>");
+                                                            break;
+                                                    }
                                                     break;
                                                 default:
                                                     //Especie incorrecta
@@ -319,7 +367,7 @@ public class Starcraft {
                                         }
                                     }
 
-                                    if (encontrado) {
+                                    /* if (encontrado) {
                                         switch (esp) {
                                             case "terran":
 
@@ -339,7 +387,7 @@ public class Starcraft {
                                     } else {
                                         //No existe especie con ese nombre
                                         System.out.println(" < ERROR 005 : No existe especie con ese nombre >");
-                                    }
+                                    }*/
                                 } else {
                                     //Nº de argumentos inválidos
                                     System.out.println("< ERROR 001: Nº de argumentos inválidos");
@@ -370,5 +418,35 @@ public class Starcraft {
             return false;
         }
         return true;
+    }
+    
+    public boolean existeEscuadron(String nombreEscuadron){
+        
+        boolean existe = false;
+        
+        for (Especie especie : aEspecies) {
+            if(especie.getNombre().equalsIgnoreCase(nombreEscuadron)){
+                return existe = true;
+            }
+        }
+        
+        return existe;
+    }
+    
+    public int posicionEscuadronArray(String nombreEscuadron){
+        
+        int pos = 0;
+        int i = 0;
+        
+        if(existeEscuadron(nombreEscuadron)){
+            for (Especie especie : aEspecies) {
+                if(especie.getNombre().equalsIgnoreCase(nombreEscuadron)){
+                    pos = i;
+                }
+                i ++;
+            }
+        }
+        
+        return pos;
     }
 }
