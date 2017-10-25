@@ -2,7 +2,8 @@ package especies;
 
 import excepciones.ExcepcionStarcraft;
 
-public class Protoss extends Especie{
+public class Protoss extends Especie {
+
     private int pilones;
 
     public Protoss(String nombre, double ataque, double defensa, int pilones) throws ExcepcionStarcraft {
@@ -11,7 +12,10 @@ public class Protoss extends Especie{
         this.setNumeroVictorias(0);
     }
 
-    public Protoss(){};
+    public Protoss() {
+    }
+
+    ;
 
     public int getPilones() {
         return pilones;
@@ -20,29 +24,33 @@ public class Protoss extends Especie{
     public void setPilones(int pilones) {
         this.pilones = pilones;
     }
-    
-    
-    
+
     @Override
-    public double aumentarDefensa() {        
+    public double aumentarDefensa() {
         double total = 0;
-        
+
         total += pilones * (0.5 * getDefensa());
-        
+
         return total;
     }
 
     @Override
     public double aumentarAtaque() {
         double total = 0;
-        
+
         total += pilones * (0.5 * getAtaque());
-        
-        return total;    
+
+        return total;
     }
-    
+
     @Override
-    public String printInfo() {
-        return this.toString();
+    public int compareTo(Especie e) {
+        if (getNumeroVictorias() < e.getNumeroVictorias()) {
+            return -1;
+        }
+        if (getNumeroVictorias() > e.getNumeroVictorias()) {
+            return 1;
+        }
+        return 0;
     }
 }

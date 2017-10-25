@@ -59,8 +59,14 @@ public class Zerg extends Especie{
     }
 
     @Override
-    public String printInfo() {
-        return this.toString();
+    public int compareTo(Especie e) {
+       if (getNumeroVictorias() < e.getNumeroVictorias()) {
+            return -1;
+        }
+        if (getNumeroVictorias() > e.getNumeroVictorias()) {
+            return 1;
+        }
+        return 0;
     }
     
     

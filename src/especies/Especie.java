@@ -59,7 +59,7 @@ public abstract class Especie {
 //        this.especie = especie;
 //    }
 
-    public abstract String printInfo();
+    public abstract int compareTo(Especie e);
     
     public abstract double aumentarDefensa();
     

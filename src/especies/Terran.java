@@ -50,10 +50,16 @@ public class Terran extends Especie{
         
         return total;
     }
-    
+
     @Override
-    public String printInfo() {
-        String mensaje = "Edificios : "+this.getEdificios();
-        return mensaje;
+    public int compareTo(Especie e) {
+    if (getNumeroVictorias() < e.getNumeroVictorias()) {
+            return -1;
+        }
+        if (getNumeroVictorias() > e.getNumeroVictorias()) {
+            return 1;
+        }
+        return 0;
     }
+       
 }

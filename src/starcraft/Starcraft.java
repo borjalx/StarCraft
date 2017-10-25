@@ -8,7 +8,9 @@ import excepciones.ExcepcionStarcraft;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Starcraft {
 
@@ -191,33 +193,73 @@ public class Starcraft {
                                 //Quién tenga el mayor ataque gana
                                 //Se guarda cada victoria en una posición del array
                                 //Se agrega una victoria al escuadrón ganador
-                                
                                 //Debe haber al menos dos objetos en el array de especies
                                 if (aEspecies.size() > 1) {
                                     //Comprobar que el nombre pertenece a cada escuadrón
                                     if (existeEscuadron(arrayEntrada[1]) && existeEscuadron(arrayEntrada[2])) {
-                                        
+
+                                        int res[] = new int[5];
+
                                         int pos2 = posicionEscuadronArray(arrayEntrada[2]);
                                         int pos1 = posicionEscuadronArray(arrayEntrada[1]);
                                         
+                                        int j1 = 0;
+                                        int j2 = 0;
+                                        
+                                        System.out.println("< Inicio batalla... >");
+                                        System.out.println("Asalto nº1");
+                                        res[0] = ganadorBatalla(aEspecies.get(pos1), aEspecies.get(pos2));
+                                        System.out.println("Asalto nº2");
+                                        res[1] = ganadorBatalla(aEspecies.get(pos1), aEspecies.get(pos2));
+                                        System.out.println("Asalto nº3");
+                                        res[2] = ganadorBatalla(aEspecies.get(pos1), aEspecies.get(pos2));
+                                        System.out.println("Asalto nº4");
+                                        res[3] = ganadorBatalla(aEspecies.get(pos1), aEspecies.get(pos2));
+                                        System.out.println("Asalto nº5");
+                                        res[4] = ganadorBatalla(aEspecies.get(pos1), aEspecies.get(pos2));
+                                        
+                                        System.out.println("< Fin de la batalla...");
+                                        
+                                        
+                                        
+                                        
+                                        for (int re : res) {
+                                            if(re == 1){
+                                                j1 ++;
+                                            }else if(re == 2){
+                                                j2 ++;
+                                            }
+                                        }
+                                        
+                                        if(j1 > j2){
+                                            System.out.println("< Ok: La batalla la ha ganado el escuadron " + arrayEntrada[1] + " con " + j1 + " asaltos >");
+                                            aEspecies.get(pos1).setNumeroVictorias(aEspecies.get(pos1).getNumeroVictorias() + 1);
+                                        }else if(j2 > j1){
+                                            System.out.println("< Ok: La batalla la ha ganado el escuadron " + arrayEntrada[2] + " con " + j2 + " asaltos >");
+                                            aEspecies.get(pos2).setNumeroVictorias(aEspecies.get(pos2).getNumeroVictorias() + 1);
+                                        }else if(j1 == j2){
+                                            System.out.println("< Ok: La batalla ha acabado con empate>");
+                                        }
+
                                         //Comprobar de que tipos son
                                         //Guardar los escuadrones
-                                        if(aEspecies.get(pos1) instanceof Terran){
+                                        /*
+                                        if (aEspecies.get(pos1) instanceof Terran) {
                                             Terran esc1 = (Terran) aEspecies.get(pos1);
-                                        }else if(aEspecies.get(pos1) instanceof Zerg){
+                                        } else if (aEspecies.get(pos1) instanceof Zerg) {
                                             Zerg esc1 = (Zerg) aEspecies.get(pos1);
-                                        }else if(aEspecies.get(pos1) instanceof Protoss){
+                                        } else if (aEspecies.get(pos1) instanceof Protoss) {
                                             Protoss esc1 = (Protoss) aEspecies.get(pos1);
                                         }
-                                        
-                                        if(aEspecies.get(pos2) instanceof Terran){
+
+                                        if (aEspecies.get(pos2) instanceof Terran) {
                                             Terran esc2 = (Terran) aEspecies.get(pos2);
-                                        }else if(aEspecies.get(pos2) instanceof Zerg){
+                                        } else if (aEspecies.get(pos2) instanceof Zerg) {
                                             Zerg esc2 = (Zerg) aEspecies.get(pos2);
-                                        }else if(aEspecies.get(pos2) instanceof Protoss){
+                                        } else if (aEspecies.get(pos2) instanceof Protoss) {
                                             Protoss esc2 = (Protoss) aEspecies.get(pos2);
                                         }
-                                        
+                                        */
 
                                     } else {
                                         //Error 005
@@ -386,6 +428,30 @@ public class Starcraft {
                             }
                             break;
                         case "c":
+                            
+                            ArrayList<Terran> aTerran = new ArrayList<>();
+                            ArrayList<Protoss> aProtoss = new ArrayList<>();
+                            ArrayList<Zerg> aZerg = new ArrayList<>();
+                            
+                            for (Especie esp : aEspecies) {
+                                if(esp instanceof Terran){
+                                    Terran t = (Terran) esp;
+                                    aTerran.add(t);
+                                }else if(esp instanceof Protoss){
+                                    Protoss p = (Protoss) esp;
+                                    aProtoss.add(p);
+                                }else if(esp instanceof Zerg){
+                                    Zerg z = (Zerg) esp;
+                                    aZerg.add(z);
+                                }
+                            }
+                            
+                            //Comprobar si esto funciona correctamente
+                            clasificacionTerrans(aTerran);
+                            clasificacionZerg(aZerg);
+                            clasificacionProtoss(aProtoss);
+                            
+                            
                             break;
                         case "s":
                             keepGoing = false;
@@ -440,4 +506,123 @@ public class Starcraft {
 
         return pos;
     }
+
+    public static int ganadorBatalla(Especie especie1, Especie especie2) {
+        
+        //Preguntar a MAR si la batalla está hecha correctamente
+        //Aunque creo que el tipo de especie no es necesario, ya que utiliza las varibales comunes
+        
+        
+        String nombreEspecie1 = especie1.getNombre();
+        String nombreEspecie2 = especie2.getNombre();
+        
+        
+        int ganador = 0;
+
+        int random1 = (int) (Math.random() * 9) + 1;
+        int random2 = (int) (Math.random() * 9) + 1;
+        
+        double de1 = especie1.getDefensa();
+        double de2 = especie2.getDefensa();
+        
+        int a = 0;
+        int b = 0;
+        
+        if (especie1 instanceof Terran) {
+            Terran esc1 = (Terran) especie1;
+            esc1.aumentarAtaque();
+            a = (int) esc1.getAtaque() + random1;
+            a -= de2;
+        } else if (especie1 instanceof Zerg) {
+            Zerg esc1 = (Zerg) especie1;
+            a = (int) esc1.getAtaque() + random1;
+            a -= de2;
+        } else if (especie1 instanceof Protoss) {
+            Protoss esc1 = (Protoss) especie1;
+            a = (int) esc1.getAtaque() + random1;
+            a -= de2;
+        }
+
+        if (especie2 instanceof Terran) {
+            Terran esc2 = (Terran) especie2;
+            esc2.aumentarAtaque();
+            b = (int) esc2.getAtaque() + random2;
+            b -= de1;
+        } else if (especie2 instanceof Zerg) {
+            Zerg esc2 = (Zerg) especie2;            
+            b = (int) esc2.getAtaque() + random2;
+            b -= de1;
+        } else if (especie2 instanceof Protoss) {
+            Protoss esc2 = (Protoss) especie2;
+            b = (int) esc2.getAtaque() + random2;
+            b -= de1;
+        }
+        
+        System.out.println("Ataca " + nombreEspecie1 + " - Nº aleatorio: " + random1 + " - Valor de su ataque : " + a);
+        System.out.println("Ataca " + nombreEspecie2 + " - Nº aleatorio: " + random2 + " - Valor de su ataque : " + b);
+        
+        if(a > b){
+            ganador = 1;
+            System.out.println("Ganador del asalto: " + nombreEspecie1);
+        }else if(b > a){
+            ganador = 2;
+            System.out.println("Ganador del asalto: " + nombreEspecie2);
+        }
+        
+        return ganador;
+    }
+
+    public static void clasificacionTerrans(ArrayList<Terran> arrayList){
+        
+        Terran numeroUno = new Terran();
+        int actualNVictorias = 0;
+        
+        for (Especie esp : arrayList) {          
+            if(esp.getNumeroVictorias() > actualNVictorias){
+                numeroUno.equals(esp);
+                actualNVictorias = esp.getNumeroVictorias();
+            }      
+        }
+        
+        System.out.println(" Terran { nombre = " + numeroUno.getNombre() + 
+                                   ", victorias = " + numeroUno.getNumeroVictorias() +  
+                                   ", edificios = " + numeroUno.getEdificios() + 
+                                   ", tecnologías = " + numeroUno.getTecnologia() + " } ");
+    }
+    
+    public static void clasificacionProtoss(ArrayList<Protoss> arrayList){
+        
+        Protoss numeroUno = new Protoss();
+        int actualNVictorias = 0;
+        
+        for (Protoss esp : arrayList) {          
+            if(esp.getNumeroVictorias() > actualNVictorias){
+                numeroUno.equals(esp);
+                actualNVictorias = esp.getNumeroVictorias();
+            }      
+        }
+        
+        System.out.println(" Terran { nombre = " + numeroUno.getNombre() + 
+                                   ", victorias = " + numeroUno.getNumeroVictorias() +  
+                                   ", pilones = " + numeroUno.getPilones() + " } ");
+    }
+    
+    public static void clasificacionZerg(ArrayList<Zerg> arrayList){
+        
+        Zerg numeroUno = new Zerg();
+        int actualNVictorias = 0;
+        
+        for (Zerg esp : arrayList) {          
+            if(esp.getNumeroVictorias() > actualNVictorias){
+                numeroUno.equals(esp);
+                actualNVictorias = esp.getNumeroVictorias();
+            }      
+        }
+        
+        System.out.println(" Terran { nombre = " + numeroUno.getNombre() + 
+                                   ", victorias = " + numeroUno.getNumeroVictorias() +  
+                                   ", esbirros = " + numeroUno.getEsbirros() +
+                                   ", overlords = " + numeroUno.getOverlords()+ " } ");
+    }
+    
 }
