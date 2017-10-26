@@ -58,7 +58,7 @@ public abstract class Especie {
 //    public void setEspecie(String especie) {
 //        this.especie = especie;
 //    }
-
+    
     public abstract int compareTo(Especie e);
     
     public abstract double aumentarDefensa();

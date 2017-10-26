@@ -61,5 +61,5 @@ public class Terran extends Especie{
         }
         return 0;
     }
-       
+    
 }
