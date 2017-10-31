@@ -57,18 +57,13 @@ public class Zerg extends Especie{
         return total;
         
     }
-
+    
     @Override
-    public int compareTo(Especie e) {
-       if (getNumeroVictorias() < e.getNumeroVictorias()) {
-            return -1;
-        }
-        if (getNumeroVictorias() > e.getNumeroVictorias()) {
-            return 1;
-        }
-        return 0;
+    public String toString() {
+        return "Zerg{" + " nombre = " + this.getNombre() +
+                           ", victorias = " + this.getNumeroVictorias() +
+                           ", esbirros = " + esbirros + 
+                           ", overlords = " + overlords + '}';
     }
-    
-    
     
 }

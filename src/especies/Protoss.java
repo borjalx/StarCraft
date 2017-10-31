@@ -44,13 +44,10 @@ public class Protoss extends Especie {
     }
 
     @Override
-    public int compareTo(Especie e) {
-        if (getNumeroVictorias() < e.getNumeroVictorias()) {
-            return -1;
-        }
-        if (getNumeroVictorias() > e.getNumeroVictorias()) {
-            return 1;
-        }
-        return 0;
+    public String toString() {
+        return "Protoss{" + " nombre = " + this.getNombre() +
+                           ", victorias = " + this.getNumeroVictorias() + 
+                           ", pilones = " + pilones + '}';
     }
+    
 }

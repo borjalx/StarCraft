@@ -8,15 +8,14 @@ import excepciones.ExcepcionStarcraft;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 
 public class Starcraft {
 
     static ArrayList<Especie> aEspecies = new ArrayList<>();
 
-    public static void main(String[] args) throws IOException, ExcepcionStarcraft {
+    public static void main(String[] args) {
 
         BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
         String arrayEntrada[];
@@ -28,7 +27,7 @@ public class Starcraft {
                 //Comprobamos que no entramos datos vacios
                 if (entrada.isEmpty()) {
                     //Dato incorrecto
-                    System.out.println("< ERROR 003 : Dato incorrecto >");
+                    throw new ExcepcionStarcraft("< ERROR 003 : Dato incorrecto >");
                 } else {
                     //Dividimos la entrada de datos en varios arrays
                     arrayEntrada = entrada.split(" ");
@@ -39,7 +38,7 @@ public class Starcraft {
                             //Comprobar que la longitud del array sea mayor a 5
                             if (arrayEntrada.length < 5) {
                                 //Nº de argumentos inválidos
-                                System.out.println("< ERROR 001: Nº de argumentos inválidos");
+                                throw new ExcepcionStarcraft("< ERROR 001: Nº de argumentos inválidos");
                             } else {
                                 //La segunda posición debe ser el tipo de especie, si no, error
                                 switch (arrayEntrada[1].toLowerCase()) {
@@ -47,7 +46,7 @@ public class Starcraft {
                                         //Con los terran el array debe ser de longitud = 7
                                         if (arrayEntrada.length != 7) {
                                             //Nº de argumentos inválidos
-                                            System.out.println("< ERROR 001: Nº de argumentos inválidos");
+                                            throw new ExcepcionStarcraft("< ERROR 001: Nº de argumentos inválidos");
                                         } else {
 
                                             //Comprobamos que el nombre no está repetido
@@ -71,7 +70,7 @@ public class Starcraft {
                                                 }
                                                 if (!isNumero) {
                                                     //Dato incorrecto
-                                                    System.out.println("< ERROR 003 : Dato incorrecto >");
+                                                    throw new ExcepcionStarcraft("< ERROR 003 : Dato incorrecto >");
                                                 } else {
                                                     //OK : Escuadron registrado
                                                     String nombre = arrayEntrada[2];
@@ -91,7 +90,7 @@ public class Starcraft {
                                         //Con los terran el array debe ser de longitud = 7
                                         if (arrayEntrada.length != 7) {
                                             //Nº de argumentos inválidos
-                                            System.out.println("< ERROR 001: Nº de argumentos inválidos");
+                                            throw new ExcepcionStarcraft("< ERROR 001: Nº de argumentos inválidos");
                                         } else {
 
                                             //Comprobamos que el nombre no está repetido
@@ -115,7 +114,7 @@ public class Starcraft {
                                                 }
                                                 if (!isNumero) {
                                                     //Dato incorrecto
-                                                    System.out.println("< ERROR 003 : Dato incorrecto >");
+                                                    throw new ExcepcionStarcraft("< ERROR 003 : Dato incorrecto >");
                                                 } else {
                                                     //OK : Escuadron registrado
                                                     String nombre = arrayEntrada[2];
@@ -134,7 +133,7 @@ public class Starcraft {
                                         //Con los protoss el array debe ser de longitud = 6
                                         if (arrayEntrada.length != 6) {
                                             //Nº de argumentos inválidos
-                                            System.out.println("< ERROR 001: Nº de argumentos inválidos");
+                                            throw new ExcepcionStarcraft("< ERROR 001: Nº de argumentos inválidos");
                                         } else {
 
                                             //Comprobamos que el nombre no está repetido
@@ -158,7 +157,7 @@ public class Starcraft {
                                                 }
                                                 if (!isNumero) {
                                                     //Dato incorrecto
-                                                    System.out.println("< ERROR 003 : Dato incorrecto >");
+                                                    throw new ExcepcionStarcraft("< ERROR 003 : Dato incorrecto >");
                                                 } else {
                                                     //Escuadrón registrado
                                                     String nombre = arrayEntrada[2];
@@ -174,8 +173,7 @@ public class Starcraft {
                                         break;
                                     default:
                                         //Sacar error 002: especie incorrecta
-                                        System.out.println("< ERROR 002: Especie incorrecta >");
-                                        break;
+                                        throw new ExcepcionStarcraft("< ERROR 002: Especie incorrecta >");
                                 }
                             }
                             break;
@@ -202,10 +200,10 @@ public class Starcraft {
 
                                         int pos2 = posicionEscuadronArray(arrayEntrada[2]);
                                         int pos1 = posicionEscuadronArray(arrayEntrada[1]);
-                                        
+
                                         int j1 = 0;
                                         int j2 = 0;
-                                        
+
                                         System.out.println("< Inicio batalla... >");
                                         System.out.println("Asalto nº1");
                                         res[0] = ganadorBatalla(aEspecies.get(pos1), aEspecies.get(pos2));
@@ -217,62 +215,41 @@ public class Starcraft {
                                         res[3] = ganadorBatalla(aEspecies.get(pos1), aEspecies.get(pos2));
                                         System.out.println("Asalto nº5");
                                         res[4] = ganadorBatalla(aEspecies.get(pos1), aEspecies.get(pos2));
-                                        
+
                                         System.out.println("< Fin de la batalla...");
-                                        
-                                        
-                                        
-                                        
+
                                         for (int re : res) {
-                                            if(re == 1){
-                                                j1 ++;
-                                            }else if(re == 2){
-                                                j2 ++;
+                                            if (re == 1) {
+                                                j1++;
+                                            } else if (re == 2) {
+                                                j2++;
                                             }
                                         }
-                                        
-                                        if(j1 > j2){
+
+                                        if (j1 > j2) {
                                             System.out.println("< Ok: La batalla la ha ganado el escuadron " + arrayEntrada[1] + " con " + j1 + " asaltos >");
                                             aEspecies.get(pos1).setNumeroVictorias(aEspecies.get(pos1).getNumeroVictorias() + 1);
-                                        }else if(j2 > j1){
+                                        } else if (j2 > j1) {
                                             System.out.println("< Ok: La batalla la ha ganado el escuadron " + arrayEntrada[2] + " con " + j2 + " asaltos >");
                                             aEspecies.get(pos2).setNumeroVictorias(aEspecies.get(pos2).getNumeroVictorias() + 1);
-                                        }else if(j1 == j2){
+                                        } else if (j1 == j2) {
                                             System.out.println("< Ok: La batalla ha acabado con empate>");
                                         }
 
                                         //Comprobar de que tipos son
                                         //Guardar los escuadrones
-                                        /*
-                                        if (aEspecies.get(pos1) instanceof Terran) {
-                                            Terran esc1 = (Terran) aEspecies.get(pos1);
-                                        } else if (aEspecies.get(pos1) instanceof Zerg) {
-                                            Zerg esc1 = (Zerg) aEspecies.get(pos1);
-                                        } else if (aEspecies.get(pos1) instanceof Protoss) {
-                                            Protoss esc1 = (Protoss) aEspecies.get(pos1);
-                                        }
-
-                                        if (aEspecies.get(pos2) instanceof Terran) {
-                                            Terran esc2 = (Terran) aEspecies.get(pos2);
-                                        } else if (aEspecies.get(pos2) instanceof Zerg) {
-                                            Zerg esc2 = (Zerg) aEspecies.get(pos2);
-                                        } else if (aEspecies.get(pos2) instanceof Protoss) {
-                                            Protoss esc2 = (Protoss) aEspecies.get(pos2);
-                                        }
-                                        */
-
                                     } else {
                                         //Error 005
-                                        System.out.println("< Error 005: No existe especie con ese nombre >");
+                                        throw new ExcepcionStarcraft("< Error 005: No existe especie con ese nombre >");
                                     }
 
                                 } else {
                                     //ERROR 004: Operación incorrecta
-                                    System.out.println("< ERROR 004: Operación incorrecta>");
+                                    throw new ExcepcionStarcraft("< ERROR 008: Deben haber al menos 2 escuadrones>");
                                 }
                             } else {
                                 //Nº de argumentos inválidos
-                                System.out.println("< ERROR 001: Nº de argumentos inválidos>");
+                                throw new ExcepcionStarcraft("< ERROR 001: Nº de argumentos inválidos>");
                             }
 
                             break;
@@ -280,8 +257,7 @@ public class Starcraft {
                             //Mejorar escuadrón
 
                             if (aEspecies.isEmpty()) {
-                                //Array vacío
-                                System.out.println("< ERROR 005 : No existe especie con ese nombre >");
+                                throw new ExcepcionStarcraft("< ERROR 005 : No existe especie con ese nombre >");
                             } else {
 
                                 //La longitud del array debe ser de 4
@@ -340,8 +316,7 @@ public class Starcraft {
                                                             break;
                                                         default:
                                                             //Propiedad incorrecta
-                                                            System.out.println("< ERROR 006: Propiedad incorrecta>");
-                                                            break;
+                                                            throw new ExcepcionStarcraft("< ERROR 006: Propiedad incorrecta>");
                                                     }
                                                     break;
                                                 case "zerg":
@@ -357,7 +332,6 @@ public class Starcraft {
                                                             if (isNumeric(arrayEntrada[3])) {
                                                                 ne = Integer.parseInt(arrayEntrada[3]);
                                                                 //Valores anteriores
-                                                                //System.out.println(z.getEsbirros());
                                                                 //Modificamos el escuadrón
                                                                 z.setEsbirros((int) ne);
                                                                 //Nuevos valores
@@ -376,14 +350,12 @@ public class Starcraft {
                                                                 z.setOverlords((int) no);
                                                                 //Nuevos valores
                                                                 //System.out.println(z.getOverlords());                                                                
-
                                                                 System.out.println("< OK: Propiedad mejorada >");
                                                             }
                                                             break;
                                                         default:
                                                             //Propiedad incorrecta
-                                                            System.out.println("< ERROR 006: Propiedad incorrecta>");
-                                                            break;
+                                                            throw new ExcepcionStarcraft("< ERROR 006: Propiedad incorrecta>");
                                                     }
                                                     break;
                                                 case "protoss":
@@ -410,71 +382,78 @@ public class Starcraft {
                                                             break;
                                                         default:
                                                             //Propiedad incorrecta
-                                                            System.out.println("< ERROR 006: Propiedad incorrecta>");
-                                                            break;
+                                                            throw new ExcepcionStarcraft("< ERROR 006: Propiedad incorrecta>");
                                                     }
                                                     break;
                                                 default:
                                                     //Especie incorrecta
-                                                    System.out.println("< ERROR 002: Especie incorrecta >");
-                                                    break;
+                                                    throw new ExcepcionStarcraft("< ERROR 002: Especie incorrecta >");
                                             }
+                                        } else {
+                                            throw new ExcepcionStarcraft("< ERROR 005 : No existe especie con ese nombre >");
                                         }
                                     }
                                 } else {
                                     //Nº de argumentos inválidos
-                                    System.out.println("< ERROR 001: Nº de argumentos inválidos");
+                                    throw new ExcepcionStarcraft("< ERROR 001: Nº de argumentos inválidos");
                                 }
                             }
                             break;
                         case "c":
-                            
-                            ArrayList<Terran> aTerran = new ArrayList<>();
-                            ArrayList<Protoss> aProtoss = new ArrayList<>();
-                            ArrayList<Zerg> aZerg = new ArrayList<>();
-                            
-                            for (Especie esp : aEspecies) {
-                                if(esp instanceof Terran){
-                                    Terran t = (Terran) esp;
-                                    aTerran.add(t);
-                                }else if(esp instanceof Protoss){
-                                    Protoss p = (Protoss) esp;
-                                    aProtoss.add(p);
-                                }else if(esp instanceof Zerg){
-                                    Zerg z = (Zerg) esp;
-                                    aZerg.add(z);
+                            if (aEspecies.isEmpty()) {
+                                throw new ExcepcionStarcraft("< CLASIFICACION: No hay escuadrones registrados >");
+                            } else {
+                                if (arrayEntrada.length != 1) {
+                                    throw new ExcepcionStarcraft("< ERROR 001: Nº de argumentos inválidos>");
+                                } else {
+                                    clasificacion();
                                 }
                             }
-                            
-                            //Comprobar si esto funciona correctamente
-                            clasificacionTerrans(aTerran);
-                            clasificacionZerg(aZerg);
-                            clasificacionProtoss(aProtoss);
-                            
-                            
                             break;
                         case "s":
                             keepGoing = false;
                             break;
                         default:
                             //Sacar error 004: operación incorrecta
-                            System.out.println("< ERROR 004 - Operación incorrecta >");
-                            break;
+                            throw new ExcepcionStarcraft("< ERROR 004 - Operación incorrecta >");
                     }
                 }
 
-            } catch (Exception e) {
+            } catch (IOException e) {
+                System.out.println("Error Entrada / Salidad!! " + e.getMessage());
+            } catch (ExcepcionStarcraft e) {
+                System.out.println(e.getMessage());
             }
         } while (keepGoing);
+    }
+
+    public static void clasificacion() {
+
+        Collections.sort(aEspecies);
+
+        if (aEspecies.size() <= 3) {
+            for (Especie especie : aEspecies) {
+                System.out.println(especie.toString());
+            }
+
+        } else {
+            for (int i = 0; i < 3; i++) {
+                System.out.println(aEspecies.get(i).toString());
+            }
+        }
     }
 
     public static boolean isNumeric(String str) {
         try {
             int d = Integer.parseInt(str);
+            if (d >= 0) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (NumberFormatException nfe) {
             return false;
         }
-        return true;
     }
 
     public static boolean existeEscuadron(String nombreEscuadron) {
@@ -508,26 +487,23 @@ public class Starcraft {
     }
 
     public static int ganadorBatalla(Especie especie1, Especie especie2) {
-        
+
         //Preguntar a MAR si la batalla está hecha correctamente
         //Aunque creo que el tipo de especie no es necesario, ya que utiliza las varibales comunes
-        
-        
         String nombreEspecie1 = especie1.getNombre();
         String nombreEspecie2 = especie2.getNombre();
-        
-        
+
         int ganador = 0;
 
         int random1 = (int) (Math.random() * 9) + 1;
         int random2 = (int) (Math.random() * 9) + 1;
-        
+
         double de1 = especie1.getDefensa();
         double de2 = especie2.getDefensa();
-        
+
         int a = 0;
         int b = 0;
-        
+
         if (especie1 instanceof Terran) {
             Terran esc1 = (Terran) especie1;
             esc1.aumentarAtaque();
@@ -549,7 +525,7 @@ public class Starcraft {
             b = (int) esc2.getAtaque() + random2;
             b -= de1;
         } else if (especie2 instanceof Zerg) {
-            Zerg esc2 = (Zerg) especie2;            
+            Zerg esc2 = (Zerg) especie2;
             b = (int) esc2.getAtaque() + random2;
             b -= de1;
         } else if (especie2 instanceof Protoss) {
@@ -557,72 +533,19 @@ public class Starcraft {
             b = (int) esc2.getAtaque() + random2;
             b -= de1;
         }
-        
+
         System.out.println("Ataca " + nombreEspecie1 + " - Nº aleatorio: " + random1 + " - Valor de su ataque : " + a);
         System.out.println("Ataca " + nombreEspecie2 + " - Nº aleatorio: " + random2 + " - Valor de su ataque : " + b);
-        
-        if(a > b){
+
+        if (a > b) {
             ganador = 1;
             System.out.println("Ganador del asalto: " + nombreEspecie1);
-        }else if(b > a){
+        } else if (b > a) {
             ganador = 2;
             System.out.println("Ganador del asalto: " + nombreEspecie2);
         }
-        
+
         return ganador;
     }
 
-    public static void clasificacionTerrans(ArrayList<Terran> arrayList){
-        
-        Terran numeroUno = new Terran();
-        int actualNVictorias = 0;
-        
-        for (Especie esp : arrayList) {          
-            if(esp.getNumeroVictorias() > actualNVictorias){
-                numeroUno.equals(esp);
-                actualNVictorias = esp.getNumeroVictorias();
-            }      
-        }
-        
-        System.out.println(" Terran { nombre = " + numeroUno.getNombre() + 
-                                   ", victorias = " + numeroUno.getNumeroVictorias() +  
-                                   ", edificios = " + numeroUno.getEdificios() + 
-                                   ", tecnologías = " + numeroUno.getTecnologia() + " } ");
-    }
-    
-    public static void clasificacionProtoss(ArrayList<Protoss> arrayList){
-        
-        Protoss numeroUno = new Protoss();
-        int actualNVictorias = 0;
-        
-        for (Protoss esp : arrayList) {          
-            if(esp.getNumeroVictorias() > actualNVictorias){
-                numeroUno.equals(esp);
-                actualNVictorias = esp.getNumeroVictorias();
-            }      
-        }
-        
-        System.out.println(" Terran { nombre = " + numeroUno.getNombre() + 
-                                   ", victorias = " + numeroUno.getNumeroVictorias() +  
-                                   ", pilones = " + numeroUno.getPilones() + " } ");
-    }
-    
-    public static void clasificacionZerg(ArrayList<Zerg> arrayList){
-        
-        Zerg numeroUno = new Zerg();
-        int actualNVictorias = 0;
-        
-        for (Zerg esp : arrayList) {          
-            if(esp.getNumeroVictorias() > actualNVictorias){
-                numeroUno.equals(esp);
-                actualNVictorias = esp.getNumeroVictorias();
-            }      
-        }
-        
-        System.out.println(" Terran { nombre = " + numeroUno.getNombre() + 
-                                   ", victorias = " + numeroUno.getNumeroVictorias() +  
-                                   ", esbirros = " + numeroUno.getEsbirros() +
-                                   ", overlords = " + numeroUno.getOverlords()+ " } ");
-    }
-    
 }

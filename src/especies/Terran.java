@@ -52,14 +52,13 @@ public class Terran extends Especie{
     }
 
     @Override
-    public int compareTo(Especie e) {
-    if (getNumeroVictorias() < e.getNumeroVictorias()) {
-            return -1;
-        }
-        if (getNumeroVictorias() > e.getNumeroVictorias()) {
-            return 1;
-        }
-        return 0;
+    public String toString() {
+        return "Terran{" + " nombre = " + this.getNombre() +
+                           ", victorias = " + this.getNumeroVictorias() +
+                           ", edificios = " + edificios + 
+                           ", tecnologia = " + tecnologia + '}';
     }
+
+    
     
 }

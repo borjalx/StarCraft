@@ -2,7 +2,7 @@ package especies;
 
 import excepciones.ExcepcionStarcraft;
 
-public abstract class Especie {
+public abstract class Especie implements Comparable<Especie> {
     private String nombre;
     private double ataque;
     private double defensa;
@@ -59,7 +59,16 @@ public abstract class Especie {
 //        this.especie = especie;
 //    }
     
-    public abstract int compareTo(Especie e);
+    @Override
+    public int compareTo(Especie e){
+        if (getNumeroVictorias() < e.getNumeroVictorias()) {
+            return 1;
+        }
+        if (getNumeroVictorias() > e.getNumeroVictorias()) {
+            return -1;
+        }
+        return 0;
+    }
     
     public abstract double aumentarDefensa();
     
